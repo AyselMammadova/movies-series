@@ -1,7 +1,23 @@
 @import "tailwindcss";
 
 @theme {
+  /* colors */
   --color-rich-black: #030A1B;
   --color-bleu-de-france: #228EE5;
   --color-atomic-tangerine: #ffa366;
+  --color-deer: #b28160;
+  --color-dark-lava: #4a3e35;
+  /* blur */
+  --blur-2xs: 2px;
+  /* spacing */
+  --spacing-122: 122px;
+  --spacing-174: 174px;
+  --spacing-488: 488px;
+  --spacing-760: 760px;
 }
+
+/* @layer components {
+  .thumbs .swiper-slide-thumb-active, .thumbs .swiper-slide-thumb-active figure {
+    @apply !w-174 !h-174 after:content-none;
+  }
+} */
