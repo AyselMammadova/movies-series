@@ -4,20 +4,30 @@
   /* colors */
   --color-rich-black: #030A1B;
   --color-bleu-de-france: #228EE5;
-  --color-atomic-tangerine: #ffa366;
-  --color-deer: #b28160;
-  --color-dark-lava: #4a3e35;
+  --color-deep-space-sparkle: #4C5F68;
+  --color-aurometalsaurus: #607985;
+  --color-police-blue: #3b505b;
+  --color-jet-stream: #BCC8CC;
+  --color-dandelion: #E5DB22;
   /* blur */
   --blur-2xs: 2px;
   /* spacing */
   --spacing-122: 122px;
   --spacing-174: 174px;
-  --spacing-488: 488px;
-  --spacing-760: 760px;
+  --spacing-660: 660px;
+  --spacing-762: 762px;
 }
 
-/* @layer components {
-  .thumbs .swiper-slide-thumb-active, .thumbs .swiper-slide-thumb-active figure {
-    @apply !w-174 !h-174 after:content-none;
+@layer components {
+  .thumbs {
+    @apply !p-20;
   }
-} */
+
+  .thumbs .swiper-slide-thumb-active {
+    @apply !scale-[135%] !z-10;
+  }
+
+  .thumbs .swiper-slide-thumb-active figure {
+    @apply after:content-none;
+  }
+}
