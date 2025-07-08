@@ -2,8 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 type Slider = {
   id: number;
-  title: string;
-  imageUrl: string;
+  movie: {cover: string, title: string, description: string, images: [{id: number, image: string}], imdb: number, platform: string, rating: number};
 }
 
 export const myApi = createApi({
@@ -11,7 +10,7 @@ export const myApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://10.20.28.103:8000/api/' }),
   endpoints: (builder) => ({
     getPosts: builder.query<Slider[], void>({
-      query: () => 'slider',
+      query: () => 'slider/',
     }),
     // getPostById: builder.query<any, number>({
     //   query: (id) => `slider/${id}`,

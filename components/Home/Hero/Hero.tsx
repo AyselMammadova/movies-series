@@ -16,24 +16,7 @@ const Hero = () => {
 const { data: sliders, error, isLoading } = useGetPostsQuery();
 
 if (isLoading) return <p>Loading...</p>
-  if (error) return <p>Error occured</p>
-
-  console.log(sliders);
-  
-
-  const movies: string[] = [
-    '/images/slider/slide1.jpg',
-    '/images/slider/slide2.jpg',
-    '/images/slider/slide3.jpg',
-    '/images/slider/slide4.jpg',
-  ]
-
-  const thumbs: string[] = [
-    '/images/slider/thumb1.jpg',
-    '/images/slider/thumb2.jpg',
-    '/images/slider/thumb3.jpg',
-    '/images/slider/thumb4.jpg',
-  ]
+if (error) return <p>Error occured</p>
 
   return (
     <main className='relative'>
@@ -50,30 +33,30 @@ if (isLoading) return <p>Loading...</p>
         modules={[FreeMode, Thumbs]}
         className="carousel py-5 px-8"
       >
-        {movies.map((movie, i) => (
+        {sliders?.map((slider, i) => (
           <SwiperSlide key={i}>
             <figure className='w-full h-screen relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-black after:opacity-60'>
-              <Image src={movie} alt='slide' width={1440} height={762} className='w-full h-full object-cover' />
+              <Image src={slider?.movie?.cover} alt='slide' width={1440} height={762} className='w-full h-full object-cover' />
             </figure>
 
             <div className='absolute left-0 bottom-30 z-10 w-1/2 pl-12 pr-28'>
               <h4 className='font-bold text-5xl text-jet-stream'>
-                Sherlock
+                {slider?.movie?.title}
               </h4>
 
               <p className='text-base font-medium text-white line-clamp-2 mt-2'>
-                The quirky spin on Conan Doyle&apos;s iconic sleuth pitches him as a &quot;high-functioning sociopath`&quot; in modern-day London. Assisting him in his investigations: Afghanistan War vet John Watson, who&apos;s introduced to Holmes by a mutual acquaintance.
+                {slider?.movie?.description}
               </p>
 
               <div className="flex items-center mt-3">
-                <StarRating defaultRating={4.5} readOnly />
+                <StarRating defaultRating={slider?.movie?.rating} readOnly />
 
                 <div className="flex items-center text-base font-medium text-white ml-2">
                   <Image src={'/images/icons/imdb.png'} alt='imdb' width={37} height={22} />
-                  <span>9.0</span>
+                  <span>{slider?.movie?.imdb}</span>
                 </div>
 
-                <Image src={'/images/icons/bbc-logo.png'} alt='bbc' width={53} height={20} className='ml-4' />
+                <Image src={slider?.movie?.platform} alt='platform' width={53} height={20} className='ml-4' />
               </div>
             </div>
           </SwiperSlide>
@@ -90,11 +73,13 @@ if (isLoading) return <p>Loading...</p>
           modules={[FreeMode, Thumbs]}
           className="thumbs"
         >
-          {thumbs.map((movie, i) => (
-            <SwiperSlide key={i} className={`!w-122 ${i === thumbs.length - 1 ? `z-[${9 - i}]` : 'z-[9]'} transition-transform duration-300 cursor-pointer`}>
+          {sliders?.map((slider, i) => (
+            <SwiperSlide key={i} className={`!w-122 ${i === sliders?.length - 1 ? `z-[${9 - i}]` : 'z-[9]'} transition-transform duration-300 cursor-pointer`}>
               <figure className="w-122 h-122 rounded-2xl overflow-hidden border border-aurometalsaurus transition-transform duration-300 
               relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-police-blue after:opacity-50">
-                <Image src={movie} alt='thumb' width={1440} height={762} className='w-full h-full object-cover' />
+                {slider?.movie?.images?.[0]?.image && (
+                  <Image src={slider.movie.images[0].image} alt='thumb' width={1440} height={762} className='w-full h-full object-cover' />
+                )}
               </figure>
             </SwiperSlide>
           ))}
