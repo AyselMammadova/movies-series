@@ -74,8 +74,8 @@ const Hero = () => {
           className="thumbs"
         >
           {sliders?.map((slider, i) => (
-            <SwiperSlide key={i} className={`!w-122 ${i === sliders?.length - 1 ? `z-[${9 - i}]` : 'z-[9]'} transition-transform duration-300 cursor-pointer`}>
-              <figure className="w-122 h-122 rounded-2xl overflow-hidden border border-aurometalsaurus transition-transform duration-300 
+            <SwiperSlide key={i} className={`!w-122px ${i === sliders?.length - 1 ? `z-[${9 - i}]` : 'z-[9]'} transition-transform duration-300 cursor-pointer`}>
+              <figure className="w-122px h-122px rounded-2xl overflow-hidden border border-aurometalsaurus transition-transform duration-300 
               relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-police-blue after:opacity-50">
                 {slider?.movie?.images?.[0]?.image && (
                   <Image src={slider.movie.images[0].image} alt='thumb' width={1440} height={762} className='w-full h-full object-cover' />

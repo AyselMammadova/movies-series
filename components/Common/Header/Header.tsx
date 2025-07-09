@@ -11,6 +11,8 @@ import { RiSearch2Line } from 'react-icons/ri'
 
 const Header = () => {
   const pathname = usePathname();
+  const isAuthPage = pathname.startsWith('/auth');
+  if (isAuthPage) return null;
 
   return (
     <header className='absolute top-10 inset-x-20 z-30'>
@@ -45,9 +47,9 @@ const Header = () => {
             <IoNotificationsSharp className='text-3xl' />
           </button>
 
-          <button>
+          <Link href='/auth'>
             <FaUser />
-          </button>
+          </Link>
 
           <button>
             <BsSunFill />

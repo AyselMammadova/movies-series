@@ -9,16 +9,24 @@
   --color-police-blue: #3b505b;
   --color-jet-stream: #BCC8CC;
   --color-dandelion: #E5DB22;
+  --color-gray: #808080;
   /* blur */
   --blur-2xs: 2px;
   /* spacing */
-  --spacing-122: 122px;
-  --spacing-174: 174px;
-  --spacing-660: 660px;
-  --spacing-762: 762px;
+  --spacing-122px: 122px;
+  --spacing-302px: 302px;
+  --spacing-795px: 795px;
 }
 
 @layer components {
+  input, button {
+    @apply outline-none focus:ring-offset-0 focus:ring-transparent;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+
   .thumbs {
     @apply !p-20;
   }

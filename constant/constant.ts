@@ -1,3 +1,5 @@
+export const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE!;
+
 export const NavLinks = [
     {
         id:1,
