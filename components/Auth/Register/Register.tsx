@@ -14,6 +14,9 @@ const Register = () => {
         username: ''
     });
 
+    console.log(isSuccess, error);
+    
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData(prev => ({
             ...prev,
@@ -44,10 +47,9 @@ const Register = () => {
                         type='text'
                         name='fullname'
                         value={data.fullname}
-                        placeholder='FUllName' 
+                        placeholder='Fullname' 
                         onChange={handleChange}
-                        className={`p-4 w-full rounded-xl border ${errors.fullname ? 'border-red-500' : 'border-jet-stream'} 
-                        text-base text-white placeholder:font-bold placeholder:text-gray`}
+                        className={`p-4 w-full rounded-xl bg-transparent autofill:bg-transparent border ${errors.fullname ? 'border-red-500' : 'border-jet-stream'} text-base text-gray font-medium`}
                     />
 
                     {errors.fullname && <p className="mt-1 text-sm text-red-500">{errors.fullname[0]}</p>}
@@ -60,8 +62,7 @@ const Register = () => {
                         value={data.email}
                         placeholder='Email' 
                         onChange={handleChange}
-                        className={`p-4 w-full rounded-xl border ${errors.email ? 'border-red-500' : 'border-jet-stream'}  
-                        text-base text-white placeholder:font-bold placeholder:text-gray`}
+                        className={`p-4 w-full rounded-xl bg-transparent border ${errors.email ? 'border-red-500' : 'border-jet-stream'} text-base text-gray font-medium`}
                     />
 
                     {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email[0]}</p>}
@@ -72,10 +73,9 @@ const Register = () => {
                         type='password'
                         name='password'
                         value={data.password}
-                        placeholder='password' 
+                        placeholder='Password' 
                         onChange={handleChange}
-                        className={`p-4 w-full rounded-xl border ${errors.password ? 'border-red-500' : 'border-jet-stream'}
-                        text-base text-white placeholder:font-bold placeholder:text-gray`}
+                        className={`p-4 w-full rounded-xl bg-transparent border ${errors.password ? 'border-red-500' : 'border-jet-stream'} text-base text-gray font-medium`}
                     />
 
                     {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password[0]}</p>}
@@ -86,10 +86,9 @@ const Register = () => {
                         type='password'
                         name='repeat_password'
                         value={data.repeat_password}
-                        placeholder='repeat the password' 
+                        placeholder='Repeat the password' 
                         onChange={handleChange}
-                        className={`p-4 w-full rounded-xl border ${errors.repeat_password ? 'border-red-500' : 'border-jet-stream'}
-                        text-base text-white placeholder:font-bold placeholder:text-gray`}
+                        className={`p-4 w-full rounded-xl bg-transparent border ${errors.repeat_password ? 'border-red-500' : 'border-jet-stream'} text-base text-gray font-medium`}
                     />
 
                     {errors.repeat_password && <p className="mt-1 text-sm text-red-500">{errors.repeat_password[0]}</p>}
@@ -100,10 +99,9 @@ const Register = () => {
                         type='text'
                         name='username'
                         value={data.username}
-                        placeholder='UserName' 
+                        placeholder='Username' 
                         onChange={handleChange}
-                        className={`p-4 w-full rounded-xl border ${errors.username ? 'border-red-500' : 'border-jet-stream'}
-                        text-base text-white placeholder:font-bold placeholder:text-gray`}
+                        className={`p-4 w-full rounded-xl bg-transparent border ${errors.username ? 'border-red-500' : 'border-jet-stream'} text-base text-gray font-medium`}
                     />
 
                     {errors.username && <p className="mt-1 text-sm text-red-500">{errors.username[0]}</p>}

@@ -39,3 +39,9 @@
     @apply after:content-none;
   }
 }
+
+@layer utilities {
+  input:-webkit-autofill {
+    @apply !bg-transparent !text-inherit !appearance-none;
+  }
+}
