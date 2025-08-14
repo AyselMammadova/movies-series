@@ -1,10 +1,17 @@
 'use client'
 import { useRegisterUserMutation } from '@/lib/api/auth';
-import React, { useState } from 'react'
+import { setTab } from '@/lib/features/auth/tabSlice';
+import { useAppDispatch } from '@/lib/hooks';
+import React, { useEffect, useState } from 'react'
+
+interface FormErrors {
+  [key: string]: string[];
+}
 
 const Register = () => {
-    const [registerUser, { isLoading, isSuccess, error }] = useRegisterUserMutation();
-    const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
+    const dispatch = useAppDispatch();
+    const [registerUser, { isLoading, isSuccess }] = useRegisterUserMutation();
+    const [errors, setErrors] = useState<FormErrors>({});
 
     const [data, setData] = useState({
         fullname: '',
@@ -14,32 +21,76 @@ const Register = () => {
         username: ''
     });
 
-    console.log(isSuccess, error);
-    
+    useEffect(() => {
+        if (isSuccess) {
+            dispatch(setTab('login'));
+        }
+    }, [isSuccess, dispatch]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        
+        if (errors[name]) {
+            setErrors(prev => {
+                const newErrors = { ...prev };
+                delete newErrors[name];
+                return newErrors;
+            });
+        }
+        
         setData(prev => ({
             ...prev,
-            [e.target.name]: e.target.value
+            [name]: value
         }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+    
+        const newErrors: FormErrors = {};
+        
+        if (!data.fullname.trim()) newErrors.fullname = ['Fullname is required'];
+        if (!data.email.trim()) newErrors.email = ['Email is required'];
+        if (!data.username.trim()) newErrors.username = ['Username is required'];
+        if (!data.password) newErrors.password = ['Password is required'];
+        if (!data.repeat_password) newErrors.repeat_password = ['Repeat password is required'];
+        if (data.password !== data.repeat_password) {
+            newErrors.repeat_password = ['Passwords do not match'];
+        }
+        
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
 
         try {
             await registerUser(data).unwrap();
-        }   catch (err: unknown) {
+        } catch (err: unknown) {
             if (err && typeof err === 'object' && 'data' in err) {
-                const errorData = (err as { data: { [key: string]: string[] } }).data;
-                setErrors(errorData);
+                const apiError = err as { data: FormErrors };
+                setErrors(apiError.data || {});
+            } else {
+                setErrors({ 
+                    non_field_errors: ['An unexpected error occurred. Please try again.'] 
+                });
             }
         }
-    }
+    };
+
 
     return (
         <>
-            {errors.non_field_errors && <p className="mb-3 text-md text-red-500 text-center">{errors.non_field_errors[0]}</p>}
+            {isSuccess && (
+                <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded-xl">
+                    Registration successful! Redirecting...
+                </div>
+            )}
+
+            {errors.non_field_errors && (
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-xl">
+                    {errors.non_field_errors[0]}
+                </div>
+            )}
 
             <form onSubmit={handleSubmit}>
                 <fieldset className='mb-12'>
@@ -49,7 +100,10 @@ const Register = () => {
                         value={data.fullname}
                         placeholder='Fullname' 
                         onChange={handleChange}
-                        className={`p-4 w-full rounded-xl bg-transparent autofill:bg-transparent border ${errors.fullname ? 'border-red-500' : 'border-jet-stream'} text-base text-gray font-medium`}
+                        disabled={isLoading}
+                        className={`p-4 w-full rounded-xl bg-transparent autofill:bg-transparent border 
+                        ${errors.fullname ? 'border-red-500 focus:border-red-600' : 'border-jet-stream focus:border-bleu-de-france'} 
+                        text-base text-gray font-medium`}
                     />
 
                     {errors.fullname && <p className="mt-1 text-sm text-red-500">{errors.fullname[0]}</p>}
@@ -62,7 +116,10 @@ const Register = () => {
                         value={data.email}
                         placeholder='Email' 
                         onChange={handleChange}
-                        className={`p-4 w-full rounded-xl bg-transparent border ${errors.email ? 'border-red-500' : 'border-jet-stream'} text-base text-gray font-medium`}
+                        disabled={isLoading}
+                        className={`p-4 w-full rounded-xl bg-transparent border 
+                        ${errors.email ? 'border-red-500 focus:border-red-600' : 'border-jet-stream focus:border-bleu-de-france'} 
+                        text-base text-gray font-medium`}
                     />
 
                     {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email[0]}</p>}
@@ -75,7 +132,10 @@ const Register = () => {
                         value={data.password}
                         placeholder='Password' 
                         onChange={handleChange}
-                        className={`p-4 w-full rounded-xl bg-transparent border ${errors.password ? 'border-red-500' : 'border-jet-stream'} text-base text-gray font-medium`}
+                        disabled={isLoading}
+                        className={`p-4 w-full rounded-xl bg-transparent border 
+                        ${errors.password ? 'border-red-500 focus:border-red-600' : 'border-jet-stream focus:border-bleu-de-france'} 
+                        text-base text-gray font-medium`}
                     />
 
                     {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password[0]}</p>}
@@ -88,7 +148,10 @@ const Register = () => {
                         value={data.repeat_password}
                         placeholder='Repeat the password' 
                         onChange={handleChange}
-                        className={`p-4 w-full rounded-xl bg-transparent border ${errors.repeat_password ? 'border-red-500' : 'border-jet-stream'} text-base text-gray font-medium`}
+                        disabled={isLoading}
+                        className={`p-4 w-full rounded-xl bg-transparent border 
+                        ${errors.repeat_password ? 'border-red-500 focus:border-red-600' : 'border-jet-stream focus:border-bleu-de-france'} 
+                        text-base text-gray font-medium`}
                     />
 
                     {errors.repeat_password && <p className="mt-1 text-sm text-red-500">{errors.repeat_password[0]}</p>}
@@ -101,7 +164,10 @@ const Register = () => {
                         value={data.username}
                         placeholder='Username' 
                         onChange={handleChange}
-                        className={`p-4 w-full rounded-xl bg-transparent border ${errors.username ? 'border-red-500' : 'border-jet-stream'} text-base text-gray font-medium`}
+                        disabled={isLoading}
+                        className={`p-4 w-full rounded-xl bg-transparent border 
+                        ${errors.username ? 'border-red-500 focus:border-red-600' : 'border-jet-stream focus:border-bleu-de-france'} 
+                        text-base text-gray font-medium`}
                     />
 
                     {errors.username && <p className="mt-1 text-sm text-red-500">{errors.username[0]}</p>}

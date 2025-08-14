@@ -1,5 +1,6 @@
 'use client'
 import { NavLinks } from '@/constant/constant'
+import { useAppSelector } from '@/lib/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -10,6 +11,7 @@ import { IoNotificationsSharp } from 'react-icons/io5'
 import { RiSearch2Line } from 'react-icons/ri'
 
 const Header = () => {
+  const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   const pathname = usePathname();
   const isAuthPage = pathname.startsWith('/auth');
   if (isAuthPage) return null;
@@ -47,8 +49,15 @@ const Header = () => {
             <IoNotificationsSharp className='text-3xl' />
           </button>
 
-          <Link href='/auth'>
-            <FaUser />
+          <Link href={isAuthenticated ? '/profile' : '/auth'}>
+            {isAuthenticated && user ? (
+              <div className="flex items-center gap-2">
+                <FaUser className="text-sm" />
+                <span>{user.username}</span>
+              </div>
+            ) : (
+              <FaUser />
+            )}
           </Link>
 
           <button>

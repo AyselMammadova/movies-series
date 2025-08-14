@@ -1,41 +1,7 @@
 import { BASE_API_URL } from '@/constant/constant';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from '../store';
-
-export type RegisterRequest = {
-    fullname: string,
-    email: string,
-    password: string,
-    repeat_password: string,
-    username: string
-};
-
-export type RegisterResponse = {
-  id: number;
-  username: string;
-  email: string;
-  token?: string;
-};
-
-export type LoginRequest = {
-  email: string;
-  password: string;
-};
-
-export type LoginResponse = {
-  token: string;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-  };
-};
-
-// export type MeResponse = {
-//   id: number;
-//   username: string;
-//   email: string;
-// };
+import { RegisterRequest, RegisterResponse, LoginRequest, LoginResponse } from '../types/auth.types';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -65,11 +31,7 @@ export const authApi = createApi({
         body: data,
       }),
     }),
-
-    // getCurrentUser: builder.query<MeResponse, void>({
-    //   query: () => 'auth/me/',
-    // }),
-
+    
     logoutUser: builder.mutation<void, void>({
       query: () => ({
         url: 'logout/',

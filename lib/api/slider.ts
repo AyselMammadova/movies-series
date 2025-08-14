@@ -1,9 +1,25 @@
 import { BASE_API_URL } from '@/constant/constant';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-type Slider = {
+export interface MovieImage {
   id: number;
-  movie: {cover: string, title: string, description: string, images: [{id: number, image: string}], imdb: number, platform: string, rating: number};
+  image: string;
+}
+
+export interface Movie {
+  id: number;
+  cover: string;
+  title: string;
+  description: string;
+  images: MovieImage[];
+  imdb: number;
+  platform: string;
+  rating: number;
+}
+
+export interface Slider {
+  id: number;
+  movie: Movie;
 }
 
 export const sliderApi = createApi({
