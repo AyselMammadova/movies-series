@@ -12,6 +12,8 @@
   --color-gray: #808080;
   /* blur */
   --blur-2xs: 2px;
+  /* shadow */
+  --shadow-bleu-de-france: 0 4px 12px -1px rgba(34, 142, 229, .5); 
   /* spacing */
   --spacing-122px: 122px;
   --spacing-302px: 302px;

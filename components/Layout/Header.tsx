@@ -4,7 +4,7 @@ import { useAppSelector } from '@/lib/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsSunFill } from 'react-icons/bs'
 import { FaUser } from 'react-icons/fa'
 import { IoNotificationsSharp } from 'react-icons/io5'
@@ -12,9 +12,19 @@ import { RiSearch2Line } from 'react-icons/ri'
 
 const Header = () => {
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
+  // const [mounted, setMounted] = useState(false);
+
+  // useEffect(() => {
+  //   setMounted(true);
+  // }, []);
+
+  // if (!mounted) return null;
+
   const pathname = usePathname();
   const isAuthPage = pathname.startsWith('/auth');
   if (isAuthPage) return null;
+
+  console.log(isAuthenticated, user)
 
   return (
     <header className='absolute top-10 inset-x-20 z-30'>
@@ -49,7 +59,7 @@ const Header = () => {
             <IoNotificationsSharp className='text-3xl' />
           </button>
 
-          <Link href={isAuthenticated ? '/profile' : '/auth'}>
+          <Link href={isAuthenticated ? '/auth' : '/auth'}>
             {isAuthenticated && user ? (
               <div className="flex items-center gap-2">
                 <FaUser className="text-sm" />

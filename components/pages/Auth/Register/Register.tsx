@@ -1,7 +1,8 @@
 'use client'
 import { useRegisterUserMutation } from '@/lib/api/auth';
-import { setTab } from '@/lib/features/auth/tabSlice';
-import { useAppDispatch } from '@/lib/hooks';
+// import { setTab } from '@/lib/features/auth/tabSlice';
+// import { useAppDispatch } from '@/lib/hooks';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 interface FormErrors {
@@ -9,7 +10,8 @@ interface FormErrors {
 }
 
 const Register = () => {
-    const dispatch = useAppDispatch();
+     const router = useRouter();
+    // const dispatch = useAppDispatch();
     const [registerUser, { isLoading, isSuccess }] = useRegisterUserMutation();
     const [errors, setErrors] = useState<FormErrors>({});
 
@@ -23,9 +25,10 @@ const Register = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            dispatch(setTab('login'));
+            router.push('/auth/profile');
+            // dispatch(setTab('login'));
         }
-    }, [isSuccess, dispatch]);
+    }, [isSuccess, router]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

@@ -25,8 +25,8 @@ const getStoredUser = (): User | null => {
 };
 
 const initialState: AuthState = {
-  token: getStoredToken(),
-  user: getStoredUser(),
+  token: getStoredToken() || '',
+  user: getStoredUser() || null,
   isAuthenticated: !!(getStoredToken() && getStoredUser())
 };
 

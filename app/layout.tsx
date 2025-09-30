@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Common/Header/Header";
+import Header from "@/components/Layout/Header";
 import StoreProvider from "./provider";
 
 const fontLato = Lato({

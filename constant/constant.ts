@@ -32,3 +32,51 @@ export const NavLinks = [
         title:'FAQ'
     }
 ]
+
+export const avatars = [
+    {
+        id: 1,
+        src: '/images/icons/user/avatar1.jpg',
+        title: 'Deadpool'
+    },
+    {
+        id: 2,
+        src: '/images/icons/user/avatar2.jpg',
+        title: 'Joker'
+    },
+    {
+        id: 3,
+        src: '/images/icons/user/avatar3.jpg',
+        title: 'Spiderman'
+    },
+    {
+        id: 4,
+        src: '/images/icons/user/avatar4.jpg',
+        title: 'Batman'
+    },
+    {
+        id: 5,
+        src: '/images/icons/user/avatar5.jpg',
+        title: 'Doctor Strange'
+    },
+    {
+        id: 6,
+        src: '/images/icons/user/avatar6.jpg',
+        title: 'Scooby Doo'
+    },
+    {
+        id: 7,
+        src: '/images/icons/user/avatar7.png',
+        title: 'Garfield'
+    },
+    {
+        id: 8,
+        src: '/images/icons/user/avatar8.jpg',
+        title: 'Sonic'
+    },
+    {
+        id: 9,
+        src: '/images/icons/user/avatar9.jpg',
+        title: 'Moana'
+    }
+]

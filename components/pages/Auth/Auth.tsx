@@ -59,7 +59,7 @@ const Auth = () => {
 
                 <div className="hidden md:block md:col-span-6 lg:col-span-7">
                     <figure className='w-full h-full'>
-                        <Image src='/images/background/auth.jpeg' alt='auth' width={974} height={795} priority className='w-full h-full max-h-795px object-contain' />
+                        <Image src='/images/background/auth.jpeg' alt='auth' width={974} height={795} priority className='w-full h-full max-h-795px object-contain rounded' />
                     </figure>
                 </div>
             </div>

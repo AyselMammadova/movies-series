@@ -1,4 +1,4 @@
-import Auth from '@/components/Auth/Auth'
+import Auth from '@/components/pages/Auth/Auth'
 import React from 'react'
 
 const AuthPage = () => {
