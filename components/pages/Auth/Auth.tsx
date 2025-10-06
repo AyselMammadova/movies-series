@@ -25,7 +25,7 @@ const Auth = () => {
             </div>
 
             <div className="grid grid-cols-12 gap-12 pt-15 pb-20 px-13">
-                <div className='col-span-12 md:col-span-6 lg:col-span-5'>
+                <div className='col-span-12 md:col-span-6 lg:col-span-4'>
                     <div className="mx-auto min-w-302px lg:w-3/5">
                         <h1 className='text-7xl font-bold text-jet-stream text-center mb-9'>
                             Welcome
@@ -57,10 +57,13 @@ const Auth = () => {
                     </div>
                 </div>
 
-                <div className="hidden md:block md:col-span-6 lg:col-span-7">
-                    <figure className='w-full h-full'>
-                        <Image src='/images/background/auth.jpeg' alt='auth' width={974} height={795} priority className='w-full h-full max-h-795px object-contain rounded' />
-                    </figure>
+                <div className="hidden md:block md:col-span-6 lg:col-span-8 rounded h-795px overflow-hidden">
+                    <Image 
+                        src='/images/background/auth.jpeg' 
+                        alt='auth' 
+                        width={974} height={795} priority 
+                        className='w-full h-full object-cover' 
+                    />
                 </div>
             </div>
         </section>

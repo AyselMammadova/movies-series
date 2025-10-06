@@ -7,10 +7,12 @@ export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_API_URL,
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers, { getState, endpoint }) => {
       const token = (getState() as RootState).auth?.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+      if (endpoint !== 'loginUser' && endpoint !== 'registerUser') {
+        if (token) {
+          headers.set('Authorization', `Bearer ${token}`);
+        }
       }
       return headers;
     },
@@ -31,6 +33,14 @@ export const authApi = createApi({
         body: data,
       }),
     }),
+
+    uploadAvatar: builder.mutation<void, FormData>({
+      query: (data) => ({
+        url: 'profile/',
+        method: 'POST',
+        body: data,
+      }),
+    }),
     
     logoutUser: builder.mutation<void, void>({
       query: () => ({
@@ -44,5 +54,6 @@ export const authApi = createApi({
 export const {
   useRegisterUserMutation,
   useLoginUserMutation,
+  useUploadAvatarMutation,
   useLogoutUserMutation,
 } = authApi;

@@ -1,30 +1,36 @@
 'use client'
 import { NavLinks } from '@/constant/constant'
 import { useAppSelector } from '@/lib/hooks'
+import { User } from '@/lib/types/auth.types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { BsSunFill } from 'react-icons/bs'
 import { FaUser } from 'react-icons/fa'
 import { IoNotificationsSharp } from 'react-icons/io5'
 import { RiSearch2Line } from 'react-icons/ri'
 
 const Header = () => {
-  const { isAuthenticated, user } = useAppSelector((state) => state.auth);
-  // const [mounted, setMounted] = useState(false);
+  const [user, setUser] = React.useState<User | null>(null);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
-  // useEffect(() => {
-  //   setMounted(true);
-  // }, []);
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('auth_user');
+      if (storedUser) {
+        try {
+          setUser(JSON.parse(storedUser));
+        } catch {
+          localStorage.removeItem('auth_user');
+        }
+      }
+    }
+  }, []);
 
-  // if (!mounted) return null;
-
+  // if page is auth
   const pathname = usePathname();
-  const isAuthPage = pathname.startsWith('/auth');
-  if (isAuthPage) return null;
-
-  console.log(isAuthenticated, user)
+  if (pathname.startsWith('/auth')) return null;
 
   return (
     <header className='absolute top-10 inset-x-20 z-30'>
@@ -59,16 +65,16 @@ const Header = () => {
             <IoNotificationsSharp className='text-3xl' />
           </button>
 
-          <Link href={isAuthenticated ? '/auth' : '/auth'}>
-            {isAuthenticated && user ? (
-              <div className="flex items-center gap-2">
-                <FaUser className="text-sm" />
-                <span>{user.username}</span>
-              </div>
-            ) : (
-              <FaUser />
-            )}
-          </Link>
+          {isAuthenticated && user ? 
+            <Link href='/auth' className="flex items-center gap-2">
+              <FaUser className="text-2xl" />
+              <span>{user?.username}</span>
+            </Link>
+          : 
+            <Link href='/auth'>
+              <FaUser className="text-2xl" />
+            </Link>
+          }
 
           <button>
             <BsSunFill />

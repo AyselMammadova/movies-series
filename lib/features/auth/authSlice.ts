@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authApi } from '../../api/auth';
-import { AuthState, User } from '@/lib/types/auth.types';
+import { AuthState, RegisterRequest, User } from '@/lib/types/auth.types';
 
 const getStoredToken = (): string | null => {
   if (typeof window !== 'undefined') {
@@ -14,9 +14,9 @@ const getStoredUser = (): User | null => {
     const userStr = localStorage.getItem('auth_user');
     if (userStr) {
       try {
-        return JSON.parse(userStr);
+        return JSON.parse(userStr) as User;
       } catch {
-        localStorage.removeItem('auth_user'); 
+        localStorage.removeItem('auth_user');
         return null;
       }
     }
@@ -24,10 +24,17 @@ const getStoredUser = (): User | null => {
   return null;
 };
 
-const initialState: AuthState = {
+const initialState: AuthState & { registerData: RegisterRequest } = {
   token: getStoredToken() || '',
   user: getStoredUser() || null,
-  isAuthenticated: !!(getStoredToken() && getStoredUser())
+  isAuthenticated: !!(getStoredToken() && getStoredUser()),
+  registerData: {
+    fullname: '',
+    email: '',
+    password: '',
+    repeat_password: '',
+    username: ''
+  }
 };
 
 const authSlice = createSlice({
@@ -51,7 +58,10 @@ const authSlice = createSlice({
         localStorage.setItem('auth_token', action.payload.access);
         localStorage.setItem('auth_user', JSON.stringify(action.payload.user));
       }
-    }
+    },
+    setRegisterData: (state, action: PayloadAction<Partial<RegisterRequest>>) => {
+      state.registerData = { ...state.registerData, ...action.payload };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -72,7 +82,7 @@ const authSlice = createSlice({
           state.token = action.payload.access;
           state.user = {
             username: action.payload.username
-          }
+          };
           state.isAuthenticated = true;
           if (typeof window !== 'undefined') {
             localStorage.setItem('auth_token', action.payload.access);

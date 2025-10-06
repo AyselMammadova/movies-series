@@ -12,6 +12,7 @@ export interface RegisterRequest {
     password: string;
     repeat_password: string;
     username: string;
+    avatar?: string;
 };
 
 export interface RegisterResponse {

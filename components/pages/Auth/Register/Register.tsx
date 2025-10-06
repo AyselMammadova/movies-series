@@ -23,12 +23,12 @@ const Register = () => {
         username: ''
     });
 
-    useEffect(() => {
-        if (isSuccess) {
-            router.push('/auth/profile');
-            // dispatch(setTab('login'));
-        }
-    }, [isSuccess, router]);
+    // useEffect(() => {
+    //     if (isSuccess) {
+    //         router.push('/auth/profile');
+    //         // dispatch(setTab('login'));
+    //     }
+    // }, [isSuccess, router]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -67,7 +67,8 @@ const Register = () => {
         }
 
         try {
-            await registerUser(data).unwrap();
+            router.push('/auth/profile');
+            // await registerUser(data).unwrap();
         } catch (err: unknown) {
             if (err && typeof err === 'object' && 'data' in err) {
                 const apiError = err as { data: FormErrors };
@@ -79,6 +80,8 @@ const Register = () => {
             }
         }
     };
+
+    console.log(data);
 
 
     return (
