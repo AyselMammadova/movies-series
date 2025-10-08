@@ -15,11 +15,11 @@ const Hero = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const { data: sliders, error, isLoading } = useGetPostsQuery();
 
-  if (isLoading) return <p>Loading...</p>
-  if (error) return <p>Error occured</p>
+  // if (isLoading) return <p>Loading...</p>
+  // if (error) return <p>Error occured</p>
 
   return (
-    <main className='relative'>
+    <main className='relative h-screen'>
       <Swiper
         style={
           {
