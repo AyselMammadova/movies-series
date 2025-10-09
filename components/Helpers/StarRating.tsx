@@ -34,7 +34,7 @@ const StarRating = ({ defaultRating = 0, onChange, readOnly }: Props) => {
 
     return (
         <div className="flex space-x-1">
-            {[...Array(5)].map((_, index) => {
+            {[...Array(10)].map((_, index) => {
                 const starValue = index + 1;
                 const current = hover || rating;
 
@@ -54,7 +54,7 @@ const StarRating = ({ defaultRating = 0, onChange, readOnly }: Props) => {
                         onMouseLeave={handleMouseLeave}
                         className={`relative w-7 h-7 text-2xl ${readOnly ? '' : 'cursor-pointer'}`}
                     >
-                        <FaStar className="text-transparent absolute top-0 left-0" />
+                        <FaStar className="text-jet-stream absolute top-0 left-0" />
 
                         <div
                             className="absolute top-0 left-0 h-full overflow-hidden"

@@ -1,4 +1,6 @@
 export const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE!;
+export const BASE_API_KEY = process.env.NEXT_PUBLIC_API_KEY!;
+export const BASE_API_KEY_IMDB = process.env.NEXT_PUBLIC_API_KEY_IMDB!;
 
 export const NavLinks = [
     {

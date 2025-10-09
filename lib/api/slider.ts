@@ -1,33 +1,86 @@
-import { BASE_API_URL } from '@/constant/constant';
+import { BASE_API_KEY, BASE_API_KEY_IMDB, BASE_API_URL } from '@/constant/constant';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export interface MovieImage {
+export interface TrendingMovie {
   id: number;
-  image: string;
+  title: string;
+  overview: string;
+  vote_average: number;
+  backdrop_path: string | null;
+  poster_path: string | null;
+  release_date: string;
+  genre_ids: number[];
 }
 
-export interface Movie {
+export interface Genre {
   id: number;
-  cover: string;
-  title: string;
-  description: string;
-  images: MovieImage[];
-  imdb: number;
-  platform: string;
-  rating: number;
+  name: string;
 }
 
 export interface Slider {
   id: number;
-  movie: Movie;
+  title: string;
+  description: string;
+  rating: number;
+  cover: string;
+  release_date: string;
+  thumb: string;
+  genres: string[];
+  imdb: number;
 }
 
 export const sliderApi = createApi({
   reducerPath: 'sliderApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_API_URL }),
   endpoints: (builder) => ({
-    getPosts: builder.query<Slider[], void>({
-      query: () => 'slider/',
+    getSliderMovies: builder.query<Slider[], void>({
+      async queryFn(_, _queryApi, _extraOptions, baseQuery) {
+        const genresRes = await baseQuery(`/genre/movie/list?api_key=${BASE_API_KEY}&language=en-US`);
+        if (genresRes.error) return { error: genresRes.error };
+        
+        const trending = await baseQuery(`/trending/movie/week?api_key=${BASE_API_KEY}&language=en-US`);
+        if (trending.error) return { error: trending.error };
+        const movies = (trending.data as { results: TrendingMovie[] }).results.slice(0, 5); 
+
+         const moviesWithDetails: Slider[] = await Promise.all(
+          movies.map(async (movie) => {
+            const movieDetailRes = await baseQuery(`/movie/${movie.id}?api_key=${BASE_API_KEY}`);
+            const movieDetailData = movieDetailRes.data as {
+              imdb_id?: string;
+              genres?: { id: number; name: string }[];
+            };
+
+            const movieGenres = movieDetailData?.genres?.map((g) => g.name) || [];
+
+            let imdbRating = 0; 
+            if (movieDetailData?.imdb_id && BASE_API_KEY_IMDB) {
+              try {
+                const omdbRes = await fetch(
+                  `https://www.omdbapi.com/?i=${movieDetailData.imdb_id}&apikey=${BASE_API_KEY_IMDB}`
+                );
+                const omdbData = await omdbRes.json();
+                imdbRating = parseFloat(omdbData.imdbRating) || 0;
+              } catch (err) {
+                console.error('OMDb fetch failed:', err);
+              }
+            }
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              description: movie.overview,
+              cover: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
+              thumb: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+              genres: movieGenres,
+              rating: movie.vote_average,
+              imdb: imdbRating,
+              release_date: movie.release_date
+            };
+          })
+        );
+
+        return { data: moviesWithDetails };
+      },
     }),
     // getPostById: builder.query<any, number>({
     //   query: (id) => `slider/${id}`,
@@ -35,4 +88,4 @@ export const sliderApi = createApi({
   }),
 })
 
-export const { useGetPostsQuery } = sliderApi
+export const { useGetSliderMoviesQuery } = sliderApi;

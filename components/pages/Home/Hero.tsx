@@ -9,14 +9,17 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import StarRating from '@/components/Helpers/StarRating';
-import { useGetPostsQuery } from '@/lib/api/slider';
+import { useGetSliderMoviesQuery } from '@/lib/api/slider';
 
 const Hero = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-  const { data: sliders } = useGetPostsQuery();
+  const { data: sliders } = useGetSliderMoviesQuery();
 
   // if (isLoading) return <p>Loading...</p>
   // if (error) return <p>Error occured</p>
+
+  console.log(sliders);
+  
 
   return (
     <main className='relative h-screen'>
@@ -36,27 +39,32 @@ const Hero = () => {
         {sliders?.map((slider, i) => (
           <SwiperSlide key={i}>
             <figure className='w-full h-screen relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-black after:opacity-60'>
-              <Image src={slider?.movie?.cover} alt='slide' width={1440} height={762} className='w-full h-full object-cover' />
+              <Image src={slider?.cover} alt='slide' width={1440} height={762} className='w-full h-full object-cover' />
             </figure>
 
             <div className='absolute left-0 bottom-30 z-10 w-1/2 pl-12 pr-28'>
-              <h4 className='font-bold text-5xl text-jet-stream'>
-                {slider?.movie?.title}
+              <h4 className='font-bold text-5xl leading-14 text-jet-stream flex items-center'>
+                {slider?.title} 
+                <span className='text-2xl text-dandelion ml-2.5 mt-2.5'>({slider?.release_date})</span>
               </h4>
 
+              <p className='text-sm font-bold text-bleu-de-france uppercase mt-2'>
+                {slider?.genres?.join(', ')}
+              </p>
+
               <p className='text-base font-medium text-white line-clamp-2 mt-2'>
-                {slider?.movie?.description}
+                {slider?.description}
               </p>
 
               <div className="flex items-center mt-3">
-                <StarRating defaultRating={slider?.movie?.rating} readOnly />
+                <StarRating defaultRating={slider?.rating} readOnly />
 
                 <div className="flex items-center text-base font-medium text-white ml-2">
-                  <Image src={'/images/icons/imdb.png'} alt='imdb' width={37} height={22} />
-                  <span>{slider?.movie?.imdb}</span>
+                  <Image src={'/images/icons/imdb.png'} alt='imdb' width={37} height={19} />
+                  <span className='ml-1'>{slider?.imdb}</span>
                 </div>
 
-                <Image src={slider?.movie?.platform} alt='platform' width={53} height={20} className='ml-4' />
+                <Image src={'/images/icons/tmdb-logo.png'} alt='tmdb' width={53} height={20} className='ml-4' />
               </div>
             </div>
           </SwiperSlide>
@@ -77,8 +85,8 @@ const Hero = () => {
             <SwiperSlide key={i} className={`!w-122px ${i === sliders?.length - 1 ? `z-[${9 - i}]` : 'z-[9]'} transition-transform duration-300 cursor-pointer`}>
               <figure className="w-122px h-122px rounded-2xl overflow-hidden border border-aurometalsaurus transition-transform duration-300 
               relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-police-blue after:opacity-50">
-                {slider?.movie?.images?.[0]?.image && (
-                  <Image src={slider.movie.images[0].image} alt='thumb' width={1440} height={762} className='w-full h-full object-cover' />
+                {slider?.thumb && (
+                  <Image src={slider.thumb} alt='thumb' width={1440} height={762} className='w-full h-full object-cover' />
                 )}
               </figure>
             </SwiperSlide>
