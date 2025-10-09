@@ -13,7 +13,7 @@ import { useGetPostsQuery } from '@/lib/api/slider';
 
 const Hero = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-  const { data: sliders, error, isLoading } = useGetPostsQuery();
+  const { data: sliders } = useGetPostsQuery();
 
   // if (isLoading) return <p>Loading...</p>
   // if (error) return <p>Error occured</p>

@@ -1,9 +1,9 @@
 'use client'
-import { useRegisterUserMutation } from '@/lib/api/auth';
+// import { useRegisterUserMutation } from '@/lib/api/auth';
 // import { setTab } from '@/lib/features/auth/tabSlice';
 // import { useAppDispatch } from '@/lib/hooks';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 interface FormErrors {
   [key: string]: string[];
@@ -12,7 +12,7 @@ interface FormErrors {
 const Register = () => {
      const router = useRouter();
     // const dispatch = useAppDispatch();
-    const [registerUser, { isLoading, isSuccess }] = useRegisterUserMutation();
+    // const [{ isLoading, isSuccess }] = useRegisterUserMutation();
     const [errors, setErrors] = useState<FormErrors>({});
 
     const [data, setData] = useState({
@@ -86,11 +86,11 @@ const Register = () => {
 
     return (
         <>
-            {isSuccess && (
+            {/* {isSuccess && (
                 <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded-xl">
                     Registration successful! Redirecting...
                 </div>
-            )}
+            )} */}
 
             {errors.non_field_errors && (
                 <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-xl">
@@ -106,7 +106,7 @@ const Register = () => {
                         value={data.fullname}
                         placeholder='Fullname' 
                         onChange={handleChange}
-                        disabled={isLoading}
+                        // disabled={isLoading}
                         className={`p-4 w-full rounded-xl bg-transparent autofill:bg-transparent border 
                         ${errors.fullname ? 'border-red-500 focus:border-red-600' : 'border-jet-stream focus:border-bleu-de-france'} 
                         text-base text-gray font-medium`}
@@ -122,7 +122,7 @@ const Register = () => {
                         value={data.email}
                         placeholder='Email' 
                         onChange={handleChange}
-                        disabled={isLoading}
+                        // disabled={isLoading}
                         className={`p-4 w-full rounded-xl bg-transparent border 
                         ${errors.email ? 'border-red-500 focus:border-red-600' : 'border-jet-stream focus:border-bleu-de-france'} 
                         text-base text-gray font-medium`}
@@ -138,7 +138,7 @@ const Register = () => {
                         value={data.password}
                         placeholder='Password' 
                         onChange={handleChange}
-                        disabled={isLoading}
+                        // disabled={isLoading}
                         className={`p-4 w-full rounded-xl bg-transparent border 
                         ${errors.password ? 'border-red-500 focus:border-red-600' : 'border-jet-stream focus:border-bleu-de-france'} 
                         text-base text-gray font-medium`}
@@ -154,7 +154,7 @@ const Register = () => {
                         value={data.repeat_password}
                         placeholder='Repeat the password' 
                         onChange={handleChange}
-                        disabled={isLoading}
+                        // disabled={isLoading}
                         className={`p-4 w-full rounded-xl bg-transparent border 
                         ${errors.repeat_password ? 'border-red-500 focus:border-red-600' : 'border-jet-stream focus:border-bleu-de-france'} 
                         text-base text-gray font-medium`}
@@ -170,7 +170,7 @@ const Register = () => {
                         value={data.username}
                         placeholder='Username' 
                         onChange={handleChange}
-                        disabled={isLoading}
+                        // disabled={isLoading}
                         className={`p-4 w-full rounded-xl bg-transparent border 
                         ${errors.username ? 'border-red-500 focus:border-red-600' : 'border-jet-stream focus:border-bleu-de-france'} 
                         text-base text-gray font-medium`}
