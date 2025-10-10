@@ -9,14 +9,14 @@ type Props = {
 
 const HeadSlider = ({ name, path }: Props) => {
     return (
-        <div className="font-bold flex items-center justify-between">
+        <div className="font-bold flex items-center justify-between mb-7">
             <h4 className='text-5xl text-jet-stream'>
                 {name}
             </h4>
 
-            <Link href={path} title={name} className='text-2xl text-bleu-de-france'>
+            <Link href={path} title={name} className='text-2xl text-bleu-de-france flex items-center'>
                 See More
-                <BsArrowRight />
+                <BsArrowRight className='ml-1.5' />
             </Link>
         </div>
     )

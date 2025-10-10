@@ -18,9 +18,6 @@ const Hero = () => {
   // if (isLoading) return <p>Loading...</p>
   // if (error) return <p>Error occured</p>
 
-  console.log(sliders);
-  
-
   return (
     <main className='relative h-screen'>
       <Swiper
@@ -59,12 +56,26 @@ const Hero = () => {
               <div className="flex items-center mt-3">
                 <StarRating defaultRating={slider?.rating} readOnly />
 
-                <div className="flex items-center text-base font-medium text-white ml-2">
+                <Image 
+                  src={'/images/icons/tmdb-logo.png'} 
+                  alt='tmdb' 
+                  width={53} 
+                  height={20} 
+                  className='ml-2' 
+                />
+
+                <Image 
+                  src={`/images/icons/${slider?.media_type === 'tv' ? 'tv-series.png' : 'movies.png'}`} 
+                  alt='media-type' 
+                  width={53} 
+                  height={51} 
+                  className='ml-4' 
+                />
+
+                <div className="flex items-center text-base font-medium text-white ml-4">
                   <Image src={'/images/icons/imdb.png'} alt='imdb' width={37} height={19} />
                   <span className='ml-1'>{slider?.imdb}</span>
                 </div>
-
-                <Image src={'/images/icons/tmdb-logo.png'} alt='tmdb' width={53} height={20} className='ml-4' />
               </div>
             </div>
           </SwiperSlide>
