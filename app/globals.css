@@ -21,8 +21,12 @@
 }
 
 @layer components {
+  a {
+    @apply focus-visible:outline-0;
+  }
+
   input, button {
-    @apply outline-none focus:ring-offset-0 focus:ring-transparent;
+    @apply outline-none focus:ring-offset-0 focus:ring-transparent focus-visible:outline-0;
   }
 
   button {
