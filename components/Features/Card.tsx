@@ -1,52 +1,39 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 type Props = {
-    data: { cover: string }
+  data: { title: string, cover: string }
 }
 
 const Card = ({ data }: Props) => {
     return (
-        <div className="relative w-[208px] h-[296px] rounded-xl overflow-hidden bg-[#0b1622]">
-      {/* Görsel */}
-      <Image
-        src={data?.cover}
-        alt="cover"
-        width={208}
-        height={296}
-        className="w-full h-full object-cover"
-      />
+      <Link href="#" className='block max-lg:h-70 max-2xl:h-74 rounded-xl overflow-hidden relative'>
+          {data?.cover ? 
+            <Image src={data?.cover} alt={data?.title ?? 'cover'} width={208} height={296} className='w-full h-full object-cover' />
+          :
+            <div className='w-full h-full bg-bleu-de-france text-white flex items-center justify-center'>
+              {data?.title}
+            </div>
+          }
 
-      {/* Köşe efekti */}
-      <div className="absolute top-0 left-0 w-16 h-16 bg-[#0b1622] rounded-br-xl z-10 after:absolute after:-right-4 after:top-0 after:w-4 after:h-4 after:rounded-tl-xl after:z-20 after:bg-[#0b1622]" />
-
-      {/* + butonu */}
-      <button className="absolute top-0 left-0 bg-black/60 text-white rounded-xl p-2 z-20">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-10 h-10"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M12 4v16m8-8H4"
-          />
-        </svg>
-      </button>
-    </div>
-        // <div className='max-xl:h-74 rounded-xl overflow-hidden bg-[#0b1622] relative'>
-        //     <Image src={data?.cover} alt='cover' width={208} height={296} className='w-full h-full object-cover' />
-
-        //     <button className="absolute top-0 left-0 bg-black/60 border-r-8 border-b-8 border-r-rich-black border-b-rich-black text-white rounded-xl p-2">
-        //         <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        //             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
-        //         </svg>
-        //     </button>
-        // </div>
+          <button className='absolute top-0 left-0 z-10 rounded-br-xl w-14 h-14 bg-gradient-to-br from-gray-700/80 via-gray-800/60 to-transparent backdrop-blur-xs overflow-hidden flex items-center justify-center'>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-10 h-10"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="#fff"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+          </button>
+      </Link>
     )
 }
 

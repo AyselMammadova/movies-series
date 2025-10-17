@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image';
 import React, { useState } from 'react';
-import { FreeMode, Thumbs } from 'swiper/modules';
+import { Autoplay, FreeMode, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper/types';
 import 'swiper/css';
@@ -29,9 +29,13 @@ const Hero = () => {
         }
         spaceBetween={10}
         navigation={false}
+        // autoplay={{
+        //   delay: 3000,
+        //   disableOnInteraction: false,
+        // }}
         thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-        modules={[FreeMode, Thumbs]}
-        className="carousel py-5 px-8"
+        modules={[FreeMode, Thumbs, Autoplay]}
+        className="py-5 px-8"
       >
         {sliders?.map((slider, i) => (
           <SwiperSlide key={i}>
@@ -41,7 +45,7 @@ const Hero = () => {
 
             <div className='absolute left-0 bottom-30 z-10 w-1/2 pl-12 pr-28'>
               <h4 className='font-bold text-5xl leading-14 text-jet-stream flex items-center'>
-                {slider?.title} 
+                <span className='line-clamp-1 max-w-4/5'>{slider?.title}</span>
                 <span className='text-2xl text-dandelion ml-2.5 mt-2.5'>({slider?.release_date})</span>
               </h4>
 

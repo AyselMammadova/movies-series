@@ -39,7 +39,7 @@ export const sliderApi = createApi({
   endpoints: (builder) => ({
     getSliderMovies: builder.query<Slider[], void>({
       async queryFn(_, _queryApi, _extraOptions, baseQuery) {
-        const trending = await baseQuery(`/trending/all/week?api_key=${BASE_API_KEY}&language=en-US`);
+        const trending = await baseQuery(`/trending/all/day?api_key=${BASE_API_KEY}&language=en-US`);
         if (trending.error) return { error: trending.error };
         const movies = (trending.data as { results: TrendingMovie[] }).results.slice(0, 5); 
 

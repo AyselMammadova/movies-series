@@ -1,11 +1,13 @@
 import Hero from "@/components/pages/Home/Hero";
-import Trends from "@/components/pages/Home/Trends";
+import List from "@/components/pages/Home/List";
 
 export default function HomePage() {
   return(
       <>
         <Hero />
-        <Trends />
+        <List type="Trends" />
+        <List type="Movies" />
+        <List type="Series" />
       </>
   )
 }
