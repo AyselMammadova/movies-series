@@ -29,10 +29,10 @@ const Hero = () => {
         }
         spaceBetween={10}
         navigation={false}
-        // autoplay={{
-        //   delay: 3000,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
         thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
         modules={[FreeMode, Thumbs, Autoplay]}
         className="py-5 px-8"
@@ -91,8 +91,8 @@ const Hero = () => {
           onSwiper={(swiper) => setThumbsSwiper(swiper)}
           spaceBetween={-15}
           slidesPerView={4}
-          freeMode={true}
-          watchSlidesProgress={true}
+          freeMode
+          watchSlidesProgress
           modules={[FreeMode, Thumbs]}
           className="thumbs"
         >

@@ -98,10 +98,10 @@ const List = ({ type }: Props) => {
                     spaceBetween={28}
                     slidesPerView={7}
                     navigation={false}
-                    // autoplay={{
-                    //     delay: 3000,
-                    //     disableOnInteraction: false,
-                    // }}
+                    autoplay={{
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    }}
                     modules={[FreeMode, Autoplay]}
                     breakpoints={{
                         0: {
