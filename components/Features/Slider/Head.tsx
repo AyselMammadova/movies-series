@@ -14,10 +14,22 @@ const HeadSlider = ({ name, path }: Props) => {
                 {name}
             </h4>
 
-            <Link href={path} title={name} className='text-2xl text-bleu-de-france flex items-center'>
-                See More
-                <BsArrowRight className='ml-1.5' />
-            </Link>
+            {name === 'Collection' ? 
+                <div className='flex border rounded-3xl border-bleu-de-france text-base font-light overflow-hidden'>
+                    <div className="bg-transparent text-jet-stream py-3 px-3.5">
+                        Series
+                    </div>
+
+                    <div className="rounded-l-3xl bg-bleu-de-france text-white p-3 px-3.5">
+                        Movies
+                    </div>
+                </div>
+            :
+                <Link href={path} title={name} className='text-2xl text-bleu-de-france flex items-center'>
+                    See More
+                    <BsArrowRight className='ml-1.5' />
+                </Link>
+            }
         </div>
     )
 }
