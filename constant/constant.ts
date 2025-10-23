@@ -82,3 +82,15 @@ export const avatars = [
         title: 'Moana'
     }
 ]
+
+export const collections = [
+    {
+        id: 1,
+        title: 'Musicals',
+        examples: [
+            '/images/content/image1.jpg',
+            '/images/content/image2.jpg', 
+            '/images/content/image3.jpg', 
+        ],
+    }
+]

@@ -1,5 +1,8 @@
 import Card from '@/components/Features/Card'
+import CollectionCard from '@/components/Features/CollectionCard'
 import HeadSlider from '@/components/Features/Slider/Head'
+import { collections } from '@/constant/constant'
+import Image from 'next/image'
 import React from 'react'
 import { Autoplay, FreeMode } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -8,6 +11,14 @@ const Collection = () => {
     return (
         <section className='max-md:p-7 md:p-10'>
             <HeadSlider name='Collection' path='/' />
+
+            <div className="grid grid-cols-7 gap-7">
+                {collections.map(collection => (
+                    <div key={collection.id}>
+                        <CollectionCard data={collection} />
+                    </div>
+                ))}
+            </div>
 
             {/* <div className="max-md:-mr-12 md:-mr-15">
                 <Swiper
