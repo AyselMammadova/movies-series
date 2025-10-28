@@ -1,11 +1,11 @@
-import Card from '@/components/Features/Card'
+// import Card from '@/components/Features/Card'
 import CollectionCard from '@/components/Features/CollectionCard'
 import HeadSlider from '@/components/Features/Slider/Head'
 import { collections } from '@/constant/constant'
-import Image from 'next/image'
+// import Image from 'next/image'
 import React from 'react'
-import { Autoplay, FreeMode } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
+// import { Autoplay, FreeMode } from 'swiper/modules'
+// import { Swiper, SwiperSlide } from 'swiper/react'
 
 const Collection = () => {
     return (

@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
-import { EffectCards } from 'swiper/modules';
+// import { EffectCards } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
